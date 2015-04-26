@@ -117,17 +117,22 @@ LexicalReorderingTableCreator::~LexicalReorderingTableCreator()
 
 void LexicalReorderingTableCreator::EncodeScores()
 {
-  InputFileStream inFile(m_inPath);
+	std::istream *inFile = NULL;
+	if (m_inPath != "-") {
+		InputFileStream inFile(m_inPath);
+	} else {
+		inFile = new std::istream(std::cin.rdbuf());
+	}
 
 #ifdef WITH_THREADS
   boost::thread_group threads;
   for (size_t i = 0; i < m_threads; ++i) {
-    EncodingTaskReordering* et = new EncodingTaskReordering(inFile, *this);
+    EncodingTaskReordering* et = new EncodingTaskReordering(*inFile, *this);
     threads.create_thread(*et);
   }
   threads.join_all();
 #else
-  EncodingTaskReordering* et = new EncodingTaskReordering(inFile, *this);
+  EncodingTaskReordering* et = new EncodingTaskReordering(*inFile, *this);
   (*et)();
   delete et;
 #endif
@@ -337,7 +342,7 @@ boost::mutex EncodingTaskReordering::m_mutex;
 boost::mutex EncodingTaskReordering::m_fileMutex;
 #endif
 
-EncodingTaskReordering::EncodingTaskReordering(InputFileStream& inFile, LexicalReorderingTableCreator& creator)
+EncodingTaskReordering::EncodingTaskReordering(std::istream& inFile, LexicalReorderingTableCreator& creator)
   : m_inFile(inFile), m_creator(creator) {}
 
 void EncodingTaskReordering::operator()()

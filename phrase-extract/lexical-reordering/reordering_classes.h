@@ -10,10 +10,14 @@
 
 #include <vector>
 #include <string>
+#include <sstream>
 #include <fstream>
 
 #include "util/string_piece.hh"
 
+#include "Bz2LineWriter.h"
+
+using namespace bg_zhechev_ventsislav;
 
 enum ORIENTATION {MONO, SWAP, DRIGHT, DLEFT, OTHER, NOMONO};
 
@@ -122,8 +126,7 @@ private:
   ModelScore* modelscore;
   Scorer* scorer;
 
-  std::FILE* file;
-  std::string filename;
+	Bz2LineWriter* outputFile;
 
   bool fe;
   bool previous;
@@ -132,17 +135,14 @@ private:
   std::vector<double> smoothing_prev;
   std::vector<double> smoothing_next;
 
-  static void split_config(const std::string& config, std::string& dir,
-                           std::string& lang, std::string& orient);
 public:
   Model(ModelScore* ms, Scorer* sc, const std::string& dir,
         const std::string& lang, const std::string& fn);
   ~Model();
-  static Model* createModel(ModelScore*, const std::string&, const std::string&);
+  static Model* createModel(ModelScore*, std::string, const std::string&);
   void createSmoothing(double w);
   void createConstSmoothing(double w);
   void score_fe(const std::string& f, const std::string& e);
   void score_f(const std::string& f);
-  void zipFile();
 };
 

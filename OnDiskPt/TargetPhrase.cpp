@@ -271,7 +271,6 @@ Moses::TargetPhrase *TargetPhrase::ConvertToMoses(const std::vector<Moses::Facto
   }
 
   // alignments
-  int index = 0;
   Moses::AlignmentInfo::CollType alignTerm, alignNonTerm;
   std::set<std::pair<size_t, size_t> > alignmentInfo;
   const PhrasePtr sp = GetSourcePhrase();

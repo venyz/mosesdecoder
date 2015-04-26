@@ -114,11 +114,11 @@ private:
   static size_t m_sourcePhraseNum;
   static std::string m_lastSourcePhrase;
 
-  InputFileStream& m_inFile;
+  std::istream& m_inFile;
   LexicalReorderingTableCreator& m_creator;
 
 public:
-  EncodingTaskReordering(InputFileStream& inFile, LexicalReorderingTableCreator& creator);
+  EncodingTaskReordering(std::istream& inFile, LexicalReorderingTableCreator& creator);
   void operator()();
 };
 

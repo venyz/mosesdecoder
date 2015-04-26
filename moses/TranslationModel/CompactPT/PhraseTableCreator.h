@@ -363,11 +363,11 @@ private:
   static boost::mutex m_fileMutex;
 #endif
   static size_t m_lineNum;
-  InputFileStream& m_inFile;
+  std::istream& m_inFile;
   PhraseTableCreator& m_creator;
 
 public:
-  RankingTask(InputFileStream& inFile, PhraseTableCreator& creator);
+  RankingTask(std::istream& inFile, PhraseTableCreator& creator);
   void operator()();
 };
 
@@ -382,11 +382,11 @@ private:
   static size_t m_sourcePhraseNum;
   static std::string m_lastSourcePhrase;
 
-  InputFileStream& m_inFile;
+  std::istream& m_inFile;
   PhraseTableCreator& m_creator;
 
 public:
-  EncodingTask(InputFileStream& inFile, PhraseTableCreator& creator);
+  EncodingTask(std::istream& inFile, PhraseTableCreator& creator);
   void operator()();
 };
 

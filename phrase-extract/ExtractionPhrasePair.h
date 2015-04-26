@@ -24,6 +24,9 @@
 #include <set>
 #include <map>
 #include <boost/unordered_map.hpp>
+#include "Bz2LineWriter.h"
+
+using namespace bg_zhechev_ventsislav;
 
 namespace MosesTraining
 {
@@ -137,7 +140,7 @@ public:
                                     const std::vector<float> &orientationClassPriorsL2R,
                                     const std::vector<float> &orientationClassPriorsR2L,
                                     double smoothingFactor,
-                                    std::ostream &out) const;
+																		Bz2LineWriter &out) const;
 
   void UpdateVocabularyFromValueTokens(const std::string& propertyKey,
                                        std::set<std::string>& vocabulary) const;

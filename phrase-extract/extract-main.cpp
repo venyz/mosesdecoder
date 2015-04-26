@@ -26,8 +26,14 @@
 #include "OutputFileStream.h"
 #include "PhraseExtractionOptions.h"
 
+#include "Bz2LineReader.h"
+#include "Bz2LineWriter.h"
+
 using namespace std;
 using namespace MosesTraining;
+using namespace bg_zhechev_ventsislav;
+
+const string extract_version = "v3.0";
 
 namespace MosesTraining
 {
@@ -86,7 +92,7 @@ namespace MosesTraining
 class ExtractTask
 {
 public:
-  ExtractTask(size_t id, SentenceAlignment &sentence,PhraseExtractionOptions &initoptions, Moses::OutputFileStream &extractFile, Moses::OutputFileStream &extractFileInv,Moses::OutputFileStream &extractFileOrientation, Moses::OutputFileStream &extractFileContext, Moses::OutputFileStream &extractFileContextInv):
+  ExtractTask(size_t id, SentenceAlignment &sentence,PhraseExtractionOptions &initoptions, Bz2LineWriter* extractFile, Bz2LineWriter* extractFileInv, Bz2LineWriter* extractFileOrientation, Bz2LineWriter* extractFileContext, Bz2LineWriter* extractFileContextInv):
     m_sentence(sentence),
     m_options(initoptions),
     m_extractFile(extractFile),
@@ -111,30 +117,33 @@ private:
 
   SentenceAlignment &m_sentence;
   const PhraseExtractionOptions &m_options;
-  Moses::OutputFileStream &m_extractFile;
-  Moses::OutputFileStream &m_extractFileInv;
-  Moses::OutputFileStream &m_extractFileOrientation;
-  Moses::OutputFileStream &m_extractFileContext;
-  Moses::OutputFileStream &m_extractFileContextInv;
+  Bz2LineWriter* m_extractFile;
+  Bz2LineWriter* m_extractFileInv;
+  Bz2LineWriter* m_extractFileOrientation;
+  Bz2LineWriter* m_extractFileContext;
+  Bz2LineWriter* m_extractFileContextInv;
 };
 }
 
 int main(int argc, char* argv[])
 {
-  cerr	<< "PhraseExtract v1.4, written by Philipp Koehn\n"
+	cerr	<< "PhraseExtract " << extract_version << ", Written by Philipp Koehn" << endl
+				<< "Modified by Ventsislav Zhechev, Autodesk Development Sàrl" << endl
         << "phrase extraction from an aligned parallel corpus\n";
 
   if (argc < 6) {
     cerr << "syntax: extract en de align extract max-length [orientation [ --model [wbe|phrase|hier]-[msd|mslr|mono] ] ";
-    cerr<<"| --OnlyOutputSpanInfo | --NoTTable | --GZOutput | --IncludeSentenceId | --SentenceOffset n | --InstanceWeights filename ]\n";
+    cerr<<"| --OnlyOutputSpanInfo | --NoTTable | --pipeOut | --GZOutput | --IncludeSentenceId | --SentenceOffset n | --InstanceWeights filename ]\n";
     exit(1);
   }
 
-  Moses::OutputFileStream extractFile;
-  Moses::OutputFileStream extractFileInv;
-  Moses::OutputFileStream extractFileOrientation;
-  Moses::OutputFileStream extractFileContext;
-  Moses::OutputFileStream extractFileContextInv;
+	bool pipeOut = false;
+
+  Bz2LineWriter* extractFile = NULL;
+  Bz2LineWriter* extractFileInv = NULL;
+  Bz2LineWriter* extractFileOrientation = NULL;
+  Bz2LineWriter* extractFileContext = NULL;
+  Bz2LineWriter* extractFileContextInv = NULL;
   const char* const &fileNameE = argv[1];
   const char* const &fileNameF = argv[2];
   const char* const &fileNameA = argv[3];
@@ -144,6 +153,8 @@ int main(int argc, char* argv[])
   for(int i=6; i<argc; i++) {
     if (strcmp(argv[i],"--OnlyOutputSpanInfo") == 0) {
       options.initOnlyOutputSpanInfo(true);
+		} else if (strcmp(argv[i], "--pipeOut") == 0) {
+			pipeOut = true;
     } else if (strcmp(argv[i],"orientation") == 0 || strcmp(argv[i],"--Orientation") == 0) {
       options.initOrientationFlag(true);
     } else if (strcmp(argv[i],"--FlexibilityScore") == 0) {
@@ -239,13 +250,10 @@ int main(int argc, char* argv[])
   }
 
   // open input files
-  Moses::InputFileStream eFile(fileNameE);
-  Moses::InputFileStream fFile(fileNameF);
-  Moses::InputFileStream aFile(fileNameA);
+	Bz2LineReader eFile(fileNameE);
+	Bz2LineReader fFile(fileNameF);
+	Bz2LineReader aFile(fileNameA);
 
-  istream *eFileP = &eFile;
-  istream *fFileP = &fFile;
-  istream *aFileP = &aFile;
 
   istream *iwFileP = NULL;
   auto_ptr<Moses::InputFileStream> instanceWeightsFile;
@@ -255,32 +263,33 @@ int main(int argc, char* argv[])
   }
 
   // open output files
+	cerr << "Outputting to " << (pipeOut ? "pipes" : "bzip2-ed files") << "…" << endl;
+	string extention = pipeOut ? ".pipe" : ".bz2";
   if (options.isTranslationFlag()) {
-    string fileNameExtractInv = fileNameExtract + ".inv" + (options.isGzOutput()?".gz":"");
-    extractFile.Open( (fileNameExtract + (options.isGzOutput()?".gz":"")).c_str());
-    extractFileInv.Open(fileNameExtractInv.c_str());
+		extractFile = new Bz2LineWriter(fileNameExtract + extention);
+	  extractFileInv = new Bz2LineWriter(fileNameExtract + ".inv" + extention);
   }
   if (options.isOrientationFlag()) {
-    string fileNameExtractOrientation = fileNameExtract + ".o" + (options.isGzOutput()?".gz":"");
-    extractFileOrientation.Open(fileNameExtractOrientation.c_str());
+		extractFileOrientation = new Bz2LineWriter(fileNameExtract + ".o" + extention);
   }
   if (options.isFlexScoreFlag()) {
-    string fileNameExtractContext = fileNameExtract + ".context"  + (options.isGzOutput()?".gz":"");
-    string fileNameExtractContextInv = fileNameExtract + ".context.inv"  + (options.isGzOutput()?".gz":"");
-    extractFileContext.Open(fileNameExtractContext.c_str());
-    extractFileContextInv.Open(fileNameExtractContextInv.c_str());
+		extractFileContext = new Bz2LineWriter(fileNameExtract + ".context" + extention);
+		extractFileContextInv = new Bz2LineWriter(fileNameExtract + ".context.inv" + extention);
   }
-
-  int i = sentenceOffset;
 
   string englishString, foreignString, alignmentString, weightString;
 
-  while(getline(*eFileP, englishString)) {
-    i++;
-    if (i%10000 == 0) cerr << "." << flush;
+	for (int i = sentenceOffset;;) {
+		if ((++i)%500000 == 0) cerr << "[extract:" << i << "]" << flush;
+		else if (i%10000 == 0) cerr << "." << flush;
 
-    getline(*fFileP, foreignString);
-    getline(*aFileP, alignmentString);
+		string englishString = eFile.readLine();
+		if (englishString.empty()) {
+			//			cerr << "Finished extraction at line " << i << "!" << endl;
+			break;
+		}
+		string foreignString = fFile.readLine();
+		string alignmentString = aFile.readLine();
     if (iwFileP) {
       getline(*iwFileP, weightString);
     }
@@ -310,24 +319,24 @@ int main(int argc, char* argv[])
     if (options.isOnlyOutputSpanInfo()) cout << "LOG: PHRASES_END:" << endl; //az: mark end of phrases
   }
 
-  eFile.Close();
-  fFile.Close();
-  aFile.Close();
+  eFile.close();
+  fFile.close();
+  aFile.close();
 
   //az: only close if we actually opened it
   if (!options.isOnlyOutputSpanInfo()) {
     if (options.isTranslationFlag()) {
-      extractFile.Close();
-      extractFileInv.Close();
+      extractFile->close();
+      extractFileInv->close();
 
     }
     if (options.isOrientationFlag()) {
-      extractFileOrientation.Close();
+      extractFileOrientation->close();
     }
 
     if (options.isFlexScoreFlag()) {
-      extractFileContext.Close();
-      extractFileContextInv.Close();
+      extractFileContext->close();
+      extractFileContextInv->close();
     }
   }
 }
@@ -435,8 +444,8 @@ void ExtractTask::extract(SentenceAlignment &sentence)
                   wordPrevOrient = getOrientWordModel(sentence, m_options.isWordType(), connectedLeftTopP, connectedRightTopP, startF, endF, startE, endE, countF, 0, 1, &ge, &lt);
                   wordNextOrient = getOrientWordModel(sentence, m_options.isWordType(), connectedLeftTopN, connectedRightTopN, endF, startF, endE, startE, 0, countF, -1, &lt, &ge);
                   orientationInfo += getOrientString(wordPrevOrient, m_options.isWordType()) + " " + getOrientString(wordNextOrient, m_options.isWordType());
-                  if(m_options.isAllModelsOutputFlag())
-                    " | | ";
+//                  if(m_options.isAllModelsOutputFlag())
+//                    " | | ";
                 }
                 addPhrase(sentence, startE, endE, startF, endF, orientationInfo);
               }
@@ -549,13 +558,13 @@ REO_POS getOrientPhraseModel (SentenceAlignment & sentence, REO_MODEL_TYPE model
     return UNKNOWN;
   connectedLeftTop = false;
   for(int indexF=startF-2*unit; (*ge)(indexF, zero) && !connectedLeftTop; indexF=indexF-unit)
-    if(connectedLeftTop = (it = inBottomRight.find(startE - unit)) != inBottomRight.end() &&
-                          it->second.find(indexF) != it->second.end())
+    if((connectedLeftTop = (it = inBottomRight.find(startE - unit)) != inBottomRight.end() &&
+                          it->second.find(indexF) != it->second.end()))
       return DRIGHT;
   connectedRightTop = false;
   for(int indexF=endF+2*unit; (*lt)(indexF, countF) && !connectedRightTop; indexF=indexF+unit)
-    if(connectedRightTop = (it = inBottomLeft.find(startE - unit)) != inBottomLeft.end() &&
-                           it->second.find(indexF) != it->second.end())
+    if((connectedRightTop = (it = inBottomLeft.find(startE - unit)) != inBottomLeft.end() &&
+                           it->second.find(indexF) != it->second.end()))
       return DLEFT;
   return UNKNOWN;
 }
@@ -874,12 +883,14 @@ void ExtractTask::writePhrasesToFile()
     outextractFileContextInv<<phrase->data();
   }
 
-  m_extractFile << outextractFile.str();
-  m_extractFileInv  << outextractFileInv.str();
-  m_extractFileOrientation << outextractFileOrientation.str();
+  m_extractFile->writeLine(outextractFile.str());
+  m_extractFileInv->writeLine(outextractFileInv.str());
+	if (m_options.isOrientationFlag()) {
+  	m_extractFileOrientation->writeLine(outextractFileOrientation.str());
+	}
   if (m_options.isFlexScoreFlag()) {
-    m_extractFileContext  << outextractFileContext.str();
-    m_extractFileContextInv << outextractFileContextInv.str();
+    m_extractFileContext->writeLine(outextractFileContext.str());
+    m_extractFileContextInv->writeLine(outextractFileContextInv.str());
   }
 }
 
@@ -913,8 +924,8 @@ void ExtractTask::extractBase( SentenceAlignment &sentence )
       outextractFileInv << "|||" << endl;
     }
   }
-  m_extractFile << outextractFile.str();
-  m_extractFileInv << outextractFileInv.str();
+  m_extractFile->writeLine(outextractFile.str());
+  m_extractFileInv->writeLine(outextractFileInv.str());
 
 }
 

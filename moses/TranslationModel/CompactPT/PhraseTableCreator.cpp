@@ -313,7 +313,7 @@ void PhraseTableCreator::LoadLexicalTable(std::string filePath)
 
 void PhraseTableCreator::CreateRankHash()
 {
-  InputFileStream inFile(m_inPath);
+	InputFileStream inFile(m_inPath);
 
 #ifdef WITH_THREADS
   boost::thread_group threads;
@@ -342,7 +342,7 @@ inline std::string PhraseTableCreator::MakeSourceTargetKey(std::string &source, 
 
 void PhraseTableCreator::EncodeTargetPhrases()
 {
-  InputFileStream inFile(m_inPath);
+	InputFileStream inFile(m_inPath);
 
 #ifdef WITH_THREADS
   boost::thread_group threads;
@@ -1021,7 +1021,7 @@ boost::mutex RankingTask::m_mutex;
 boost::mutex RankingTask::m_fileMutex;
 #endif
 
-RankingTask::RankingTask(InputFileStream& inFile, PhraseTableCreator& creator)
+RankingTask::RankingTask(std::istream& inFile, PhraseTableCreator& creator)
   : m_inFile(inFile), m_creator(creator) {}
 
 void RankingTask::operator()()
@@ -1121,7 +1121,7 @@ boost::mutex EncodingTask::m_mutex;
 boost::mutex EncodingTask::m_fileMutex;
 #endif
 
-EncodingTask::EncodingTask(InputFileStream& inFile, PhraseTableCreator& creator)
+EncodingTask::EncodingTask(std::istream& inFile, PhraseTableCreator& creator)
   : m_inFile(inFile), m_creator(creator) {}
 
 void EncodingTask::operator()()

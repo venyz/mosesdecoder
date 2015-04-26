@@ -470,7 +470,7 @@ void ExtractionPhrasePair::CollectAllPhraseOrientations(const std::string &key,
     const std::vector<float> &orientationClassPriorsL2R,
     const std::vector<float> &orientationClassPriorsR2L,
     double smoothingFactor,
-    std::ostream &out) const
+    Bz2LineWriter &out) const
 {
   assert(orientationClassPriorsL2R.size()==4 && orientationClassPriorsR2L.size()==4); // mono swap dleft dright
 
@@ -544,15 +544,17 @@ void ExtractionPhrasePair::CollectAllPhraseOrientations(const std::string &key,
     orientationClassCountSumR2L[r2lOrientationClassId] += iter->second;
   }
 
+	stringstream outData;
   for (size_t i=0; i<4; ++i) {
     if (i>0) {
-      out << " ";
+      outData << " ";
     }
-    out << (float)( (smoothingFactor*orientationClassPriorsL2R[i] + orientationClassCountSumL2R[i]) / (smoothingFactor + m_count) );
+    outData << (float)( (smoothingFactor*orientationClassPriorsL2R[i] + orientationClassCountSumL2R[i]) / (smoothingFactor + m_count) );
   }
   for (size_t i=0; i<4; ++i) {
-    out << " " << (float)( (smoothingFactor*orientationClassPriorsR2L[i] + orientationClassCountSumR2L[i]) / (smoothingFactor + m_count) );
+    outData << " " << (float)( (smoothingFactor*orientationClassPriorsR2L[i] + orientationClassCountSumR2L[i]) / (smoothingFactor + m_count) );
   }
+	out.writeLine(outData.str());
 }
 
 

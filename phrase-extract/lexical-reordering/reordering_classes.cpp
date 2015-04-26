@@ -6,7 +6,6 @@
 #include <cstdio>
 #include <sstream>
 #include <string>
-#include "zlib.h"
 
 #include "reordering_classes.h"
 
@@ -277,8 +276,10 @@ void Model::score_fe(const string& f, const string& e)
 {
   if (!fe)    //Make sure we do not do anything if it is not a fe model
     return;
-  fprintf(file,"%s ||| %s ||| ",f.c_str(),e.c_str());
-  //condition on the previous phrase
+	
+	outputFile->writeLine(f + " ||| " + e + " ||| ");
+
+	//condition on the previous phrase
   if (previous) {
     vector<double> scores;
     scorer->score(modelscore->get_scores_fe_prev(), scores);
@@ -287,10 +288,9 @@ void Model::score_fe(const string& f, const string& e)
       scores[i] += smoothing_prev[i];
       sum += scores[i];
     }
-    for(size_t i=0; i<scores.size(); ++i) {
-      fprintf(file,"%f ",scores[i]/sum);
-    }
-    //fprintf(file, "||| ");
+		stringstream out;
+		for (size_t i = 0; i < scores.size(); out << scores[i++]/sum << " ");
+		outputFile->writeLine(out.str());
   }
   //condition on the next phrase
   if (next) {
@@ -301,18 +301,20 @@ void Model::score_fe(const string& f, const string& e)
       scores[i] += smoothing_next[i];
       sum += scores[i];
     }
-    for(size_t i=0; i<scores.size(); ++i) {
-      fprintf(file, "%f ", scores[i]/sum);
-    }
+		stringstream out;
+		for (size_t i = 0; i < scores.size(); out << scores[i++]/sum << " ");
+		outputFile->writeLine(out.str());
   }
-  fprintf(file,"\n");
+	outputFile->writeLine("\n");
 }
 
 void Model::score_f(const string& f)
 {
   if (fe)      //Make sure we do not do anything if it is not a f model
     return;
-  fprintf(file, "%s ||| ", f.c_str());
+	
+  outputFile->writeLine(f + " ||| ");
+	
   //condition on the previous phrase
   if (previous) {
     vector<double> scores;
@@ -322,10 +324,9 @@ void Model::score_f(const string& f)
       scores[i] += smoothing_prev[i];
       sum += scores[i];
     }
-    for(size_t i=0; i<scores.size(); ++i) {
-      fprintf(file, "%f ", scores[i]/sum);
-    }
-    //fprintf(file, "||| ");
+		stringstream out;
+		for (size_t i = 0; i < scores.size(); out << scores[i++]/sum << " ");
+		outputFile->writeLine(out.str());
   }
   //condition on the next phrase
   if (next) {
@@ -336,22 +337,16 @@ void Model::score_f(const string& f)
       scores[i] += smoothing_next[i];
       sum += scores[i];
     }
-    for(size_t i=0; i<scores.size(); ++i) {
-      fprintf(file, "%f ", scores[i]/sum);
-    }
+		stringstream out;
+		for (size_t i = 0; i < scores.size(); out << scores[i++]/sum << " ");
+		outputFile->writeLine(out.str());
   }
-  fprintf(file, "\n");
+	outputFile->writeLine("\n");
 }
 
 Model::Model(ModelScore* ms, Scorer* sc, const string& dir, const string& lang, const string& fn)
-  : modelscore(ms), scorer(sc), filename(fn)
+  : modelscore(ms), scorer(sc), outputFile(new Bz2LineWriter(fn))
 {
-
-  file = fopen(filename.c_str(),"w");
-  if (!file) {
-    cerr << "Could not open the model output file: " << filename << endl;
-    exit(1);
-  }
 
   fe = false;
   if (lang.compare("fe") == 0) {
@@ -373,44 +368,25 @@ Model::Model(ModelScore* ms, Scorer* sc, const string& dir, const string& lang, 
 
 Model::~Model()
 {
-  fclose(file);
+  delete outputFile;
   delete modelscore;
   delete scorer;
 }
 
-void Model::zipFile()
+Model* Model::createModel(ModelScore* modelscore, string config, const string& filepath)
 {
-  fclose(file);
-  file = fopen(filename.c_str(), "rb");
-  gzFile gzfile = gzopen((filename+".gz").c_str(),"wb");
-  char inbuffer[128];
-  int num_read;
-  while ((num_read = fread(inbuffer, 1, sizeof(inbuffer), file)) > 0) {
-    gzwrite(gzfile, inbuffer, num_read);
-  }
-  fclose(file);
-  gzclose(gzfile);
+	//Save the filename first
+	string filename = filepath == "-" ? filepath : filepath + "." + config + ".bz2";
+	//Take out the type
+	config = config.substr(config.find('-') + 1);
+	//Read the orientation
+	string orient = config.substr(0, config.find('-'));
+	config = config.substr(config.find('-') + 1);
+	//Read the direction
+	string dir = config.substr(0, config.find('-'));
+	//Read the language
+	string lang = config.substr(config.find('-') + 1);
 
-  //Remove the unzipped file
-  remove(filename.c_str());
-}
-
-void Model::split_config(const string& config, string& dir, string& lang, string& orient)
-{
-  istringstream is(config);
-  string type;
-  getline(is, type, '-');
-  getline(is, orient, '-');
-  getline(is, dir, '-');
-  getline(is, lang, '-');
-}
-
-Model* Model::createModel(ModelScore* modelscore, const string& config, const string& filepath)
-{
-  string dir, lang, orient, filename;
-  split_config(config,dir,lang,orient);
-
-  filename = filepath + config;
   if (orient.compare("mslr") == 0) {
     return new Model(modelscore, new ScorerMSLR(), dir, lang, filename);
   } else if (orient.compare("msd") == 0) {

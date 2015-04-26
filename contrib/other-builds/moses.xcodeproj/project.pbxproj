@@ -267,7 +267,6 @@
 		3DFA82BD17D11EDE005EE8B8 /* mbr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA82AD17D11E55005EE8B8 /* mbr.cpp */; };
 		3DFA82BE17D11EDE005EE8B8 /* mbr.h in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA82AE17D11E55005EE8B8 /* mbr.h */; };
 		3DFA82BF17D11EDE005EE8B8 /* IOWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA82B517D11E55005EE8B8 /* IOWrapper.cpp */; };
-		3DFA82C017D11EFD005EE8B8 /* libmoses.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAC046055464E500DB518D /* libmoses.a */; };
 		3DFA835317D12E3C005EE8B8 /* OnDiskQuery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA82DC17D12110005EE8B8 /* OnDiskQuery.cpp */; };
 		3DFA835417D12E3C005EE8B8 /* OnDiskWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA82DE17D12110005EE8B8 /* OnDiskWrapper.cpp */; };
 		3DFA835517D12E3C005EE8B8 /* Phrase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA82E017D12110005EE8B8 /* Phrase.cpp */; };
@@ -297,12 +296,7 @@
 		3DFCD79317C7E7E500BA3700 /* ChartTranslationOption.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD5DD17C7E7E400BA3700 /* ChartTranslationOption.cpp */; };
 		3DFCD79517C7E7E500BA3700 /* ChartTranslationOptionList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD5DF17C7E7E400BA3700 /* ChartTranslationOptionList.cpp */; };
 		3DFCD79717C7E7E500BA3700 /* ChartTranslationOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD5E117C7E7E400BA3700 /* ChartTranslationOptions.cpp */; };
-		3DFCD79917C7E7E500BA3700 /* ChartTrellisDetour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD5E317C7E7E400BA3700 /* ChartTrellisDetour.cpp */; };
-		3DFCD79B17C7E7E500BA3700 /* ChartTrellisDetourQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD5E517C7E7E400BA3700 /* ChartTrellisDetourQueue.cpp */; };
-		3DFCD79D17C7E7E500BA3700 /* ChartTrellisNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD5E717C7E7E400BA3700 /* ChartTrellisNode.cpp */; };
-		3DFCD79F17C7E7E500BA3700 /* ChartTrellisPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD5E917C7E7E400BA3700 /* ChartTrellisPath.cpp */; };
 		3DFCD7A217C7E7E500BA3700 /* ConfusionNet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD5EC17C7E7E400BA3700 /* ConfusionNet.cpp */; };
-		3DFCD7A417C7E7E500BA3700 /* DecodeFeature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD5EE17C7E7E400BA3700 /* DecodeFeature.cpp */; };
 		3DFCD7A617C7E7E500BA3700 /* DecodeGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD5F017C7E7E400BA3700 /* DecodeGraph.cpp */; };
 		3DFCD7A817C7E7E500BA3700 /* DecodeStep.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD5F217C7E7E400BA3700 /* DecodeStep.cpp */; };
 		3DFCD7AA17C7E7E500BA3700 /* DecodeStepGeneration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD5F417C7E7E400BA3700 /* DecodeStepGeneration.cpp */; };
@@ -347,24 +341,14 @@
 		3DFCD80117C7E7E500BA3700 /* InputFileStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD65117C7E7E400BA3700 /* InputFileStream.cpp */; };
 		3DFCD80317C7E7E500BA3700 /* InputPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD65317C7E7E400BA3700 /* InputPath.cpp */; };
 		3DFCD80517C7E7E500BA3700 /* InputType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD65517C7E7E400BA3700 /* InputType.cpp */; };
-		3DFCD80817C7E7E500BA3700 /* LexicalReordering.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD65817C7E7E400BA3700 /* LexicalReordering.cpp */; };
-		3DFCD80A17C7E7E500BA3700 /* LexicalReorderingState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD65A17C7E7E400BA3700 /* LexicalReorderingState.cpp */; };
-		3DFCD80C17C7E7E500BA3700 /* LexicalReorderingTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD65C17C7E7E400BA3700 /* LexicalReorderingTable.cpp */; };
 		3DFCD80E17C7E7E500BA3700 /* Backward.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD65F17C7E7E400BA3700 /* Backward.cpp */; };
 		3DFCD81017C7E7E500BA3700 /* BackwardLMState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD66117C7E7E400BA3700 /* BackwardLMState.cpp */; };
 		3DFCD81217C7E7E500BA3700 /* BackwardTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD66317C7E7E400BA3700 /* BackwardTest.cpp */; };
 		3DFCD81317C7E7E500BA3700 /* Base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD66417C7E7E400BA3700 /* Base.cpp */; };
-		3DFCD81617C7E7E500BA3700 /* IRST.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD66717C7E7E400BA3700 /* IRST.cpp */; };
 		3DFCD81817C7E7E500BA3700 /* Implementation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD66917C7E7E400BA3700 /* Implementation.cpp */; };
-		3DFCD81B17C7E7E500BA3700 /* Joint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD66C17C7E7E400BA3700 /* Joint.cpp */; };
 		3DFCD81D17C7E7E500BA3700 /* Ken.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD66E17C7E7E400BA3700 /* Ken.cpp */; };
-		3DFCD81F17C7E7E500BA3700 /* LDHT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD67017C7E7E400BA3700 /* LDHT.cpp */; };
 		3DFCD82117C7E7E500BA3700 /* MultiFactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD67217C7E7E400BA3700 /* MultiFactor.cpp */; };
-		3DFCD82317C7E7E500BA3700 /* ORLM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD67417C7E7E400BA3700 /* ORLM.cpp */; };
-		3DFCD82517C7E7E500BA3700 /* ParallelBackoff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD67617C7E7E400BA3700 /* ParallelBackoff.cpp */; };
-		3DFCD82817C7E7E500BA3700 /* Rand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD67917C7E7E400BA3700 /* Rand.cpp */; };
 		3DFCD82A17C7E7E500BA3700 /* Remote.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD67B17C7E7E400BA3700 /* Remote.cpp */; };
-		3DFCD82C17C7E7E500BA3700 /* SRI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD67D17C7E7E400BA3700 /* SRI.cpp */; };
 		3DFCD82E17C7E7E500BA3700 /* SingleFactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD67F17C7E7E400BA3700 /* SingleFactor.cpp */; };
 		3DFCD83017C7E7E500BA3700 /* LVoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD68817C7E7E400BA3700 /* LVoc.cpp */; };
 		3DFCD83217C7E7E500BA3700 /* Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD68A17C7E7E400BA3700 /* Manager.cpp */; };
@@ -377,7 +361,6 @@
 		3DFCD84217C7E7E500BA3700 /* Phrase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD69A17C7E7E400BA3700 /* Phrase.cpp */; };
 		3DFCD84517C7E7E500BA3700 /* PrefixTreeMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD69D17C7E7E400BA3700 /* PrefixTreeMap.cpp */; };
 		3DFCD84717C7E7E500BA3700 /* ReorderingConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD69F17C7E7E400BA3700 /* ReorderingConstraint.cpp */; };
-		3DFCD84917C7E7E500BA3700 /* ReorderingStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD6A117C7E7E400BA3700 /* ReorderingStack.cpp */; };
 		3DFCD84B17C7E7E500BA3700 /* RuleCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD6A417C7E7E400BA3700 /* RuleCube.cpp */; };
 		3DFCD84D17C7E7E500BA3700 /* RuleCubeItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD6A617C7E7E400BA3700 /* RuleCubeItem.cpp */; };
 		3DFCD84F17C7E7E500BA3700 /* RuleCubeQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD6A817C7E7E400BA3700 /* RuleCubeQueue.cpp */; };
@@ -453,7 +436,6 @@
 		3DFCD8FC17C7E7E500BA3700 /* TreeInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD76417C7E7E500BA3700 /* TreeInput.cpp */; };
 		3DFCD8FE17C7E7E500BA3700 /* TrellisPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD76617C7E7E500BA3700 /* TrellisPath.cpp */; };
 		3DFCD90017C7E7E500BA3700 /* TrellisPathCollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD76817C7E7E500BA3700 /* TrellisPathCollection.cpp */; };
-		3DFCD90517C7E7E500BA3700 /* UserMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD76D17C7E7E500BA3700 /* UserMessage.cpp */; };
 		3DFCD90717C7E7E500BA3700 /* Util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD76F17C7E7E500BA3700 /* Util.cpp */; };
 		3DFCD90917C7E7E500BA3700 /* Word.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD77117C7E7E500BA3700 /* Word.cpp */; };
 		3DFCD90B17C7E7E500BA3700 /* WordLattice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFCD77317C7E7E500BA3700 /* WordLattice.cpp */; };
@@ -467,91 +449,91 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3DFA835E17D12E92005EE8B8 /* CreateOnDiskPt */;
+			remoteGlobalIDString = 3DFA835E17D12E92005EE8B8;
 			remoteInfo = CreateOnDiskPt;
 		};
 		3D0B8BC617D62E4300250193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3D44CEF117D62C0F00E3925F /* queryOnDiskPt */;
+			remoteGlobalIDString = 3D44CEF117D62C0F00E3925F;
 			remoteInfo = queryOnDiskPt;
 		};
 		3D0B8C2817D633C500250193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3DFA829B17D11E20005EE8B8 /* moses */;
+			remoteGlobalIDString = 3DFA829B17D11E20005EE8B8;
 			remoteInfo = moses;
 		};
 		3D0B8C2A17D633CB00250193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3D0B8BF817D6328300250193 /* lmbrgrid */;
+			remoteGlobalIDString = 3D0B8BF817D6328300250193;
 			remoteInfo = lmbrgrid;
 		};
 		3D0B8C5F17D6353700250193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3D0B8C4317D634E900250193 /* moses_chart */;
+			remoteGlobalIDString = 3D0B8C4317D634E900250193;
 			remoteInfo = moses_chart;
 		};
 		3D0B8DC917D65D2A00250193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3D0B8DB117D65CE700250193 /* queryPhraseTableMin */;
+			remoteGlobalIDString = 3D0B8DB117D65CE700250193;
 			remoteInfo = queryPhraseTableMin;
 		};
 		3D0B8DCB17D65D2A00250193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3D0B8D8B17D65C1F00250193 /* processLexicalTableMin */;
+			remoteGlobalIDString = 3D0B8D8B17D65C1F00250193;
 			remoteInfo = processLexicalTableMin;
 		};
 		3D0B8DCD17D65D2A00250193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3D0B8D5D17D658DC00250193 /* processPhraseTableMin */;
+			remoteGlobalIDString = 3D0B8D5D17D658DC00250193;
 			remoteInfo = processPhraseTableMin;
 		};
 		3D0B8DCF17D65D2A00250193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3D0B8D4417D6582300250193 /* queryLexicalTable */;
+			remoteGlobalIDString = 3D0B8D4417D6582300250193;
 			remoteInfo = queryLexicalTable;
 		};
 		3D0B8DD117D65D2A00250193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3D0B8D2A17D6576400250193 /* queryPhraseTable */;
+			remoteGlobalIDString = 3D0B8D2A17D6576400250193;
 			remoteInfo = queryPhraseTable;
 		};
 		3D0B8DD317D65D2A00250193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3D0B8CFE17D6555400250193 /* processLexicalTable */;
+			remoteGlobalIDString = 3D0B8CFE17D6555400250193;
 			remoteInfo = processLexicalTable;
 		};
 		3D0B8DD517D65D2A00250193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3D0B8CDE17D6546D00250193 /* processPhraseTable */;
+			remoteGlobalIDString = 3D0B8CDE17D6546D00250193;
 			remoteInfo = processPhraseTable;
 		};
 		3D0B8DE117D65DFF00250193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3D0B8C8117D6360100250193 /* biconcor */;
+			remoteGlobalIDString = 3D0B8C8117D6360100250193;
 			remoteInfo = biconcor;
 		};
 		3DFA816817D11448005EE8B8 /* PBXContainerItemProxy */ = {
@@ -999,19 +981,8 @@
 		3DFCD5E017C7E7E400BA3700 /* ChartTranslationOptionList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChartTranslationOptionList.h; path = ../../moses/ChartTranslationOptionList.h; sourceTree = SOURCE_ROOT; };
 		3DFCD5E117C7E7E400BA3700 /* ChartTranslationOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChartTranslationOptions.cpp; path = ../../moses/ChartTranslationOptions.cpp; sourceTree = SOURCE_ROOT; };
 		3DFCD5E217C7E7E400BA3700 /* ChartTranslationOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChartTranslationOptions.h; path = ../../moses/ChartTranslationOptions.h; sourceTree = SOURCE_ROOT; };
-		3DFCD5E317C7E7E400BA3700 /* ChartTrellisDetour.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChartTrellisDetour.cpp; path = ../../moses/ChartTrellisDetour.cpp; sourceTree = SOURCE_ROOT; };
-		3DFCD5E417C7E7E400BA3700 /* ChartTrellisDetour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChartTrellisDetour.h; path = ../../moses/ChartTrellisDetour.h; sourceTree = SOURCE_ROOT; };
-		3DFCD5E517C7E7E400BA3700 /* ChartTrellisDetourQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChartTrellisDetourQueue.cpp; path = ../../moses/ChartTrellisDetourQueue.cpp; sourceTree = SOURCE_ROOT; };
-		3DFCD5E617C7E7E400BA3700 /* ChartTrellisDetourQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChartTrellisDetourQueue.h; path = ../../moses/ChartTrellisDetourQueue.h; sourceTree = SOURCE_ROOT; };
-		3DFCD5E717C7E7E400BA3700 /* ChartTrellisNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChartTrellisNode.cpp; path = ../../moses/ChartTrellisNode.cpp; sourceTree = SOURCE_ROOT; };
-		3DFCD5E817C7E7E400BA3700 /* ChartTrellisNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChartTrellisNode.h; path = ../../moses/ChartTrellisNode.h; sourceTree = SOURCE_ROOT; };
-		3DFCD5E917C7E7E400BA3700 /* ChartTrellisPath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChartTrellisPath.cpp; path = ../../moses/ChartTrellisPath.cpp; sourceTree = SOURCE_ROOT; };
-		3DFCD5EA17C7E7E400BA3700 /* ChartTrellisPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChartTrellisPath.h; path = ../../moses/ChartTrellisPath.h; sourceTree = SOURCE_ROOT; };
-		3DFCD5EB17C7E7E400BA3700 /* ChartTrellisPathList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChartTrellisPathList.h; path = ../../moses/ChartTrellisPathList.h; sourceTree = SOURCE_ROOT; };
 		3DFCD5EC17C7E7E400BA3700 /* ConfusionNet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConfusionNet.cpp; path = ../../moses/ConfusionNet.cpp; sourceTree = SOURCE_ROOT; };
 		3DFCD5ED17C7E7E400BA3700 /* ConfusionNet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfusionNet.h; path = ../../moses/ConfusionNet.h; sourceTree = SOURCE_ROOT; };
-		3DFCD5EE17C7E7E400BA3700 /* DecodeFeature.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DecodeFeature.cpp; path = ../../moses/DecodeFeature.cpp; sourceTree = SOURCE_ROOT; };
-		3DFCD5EF17C7E7E400BA3700 /* DecodeFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DecodeFeature.h; path = ../../moses/DecodeFeature.h; sourceTree = SOURCE_ROOT; };
 		3DFCD5F017C7E7E400BA3700 /* DecodeGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DecodeGraph.cpp; path = ../../moses/DecodeGraph.cpp; sourceTree = SOURCE_ROOT; };
 		3DFCD5F117C7E7E400BA3700 /* DecodeGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DecodeGraph.h; path = ../../moses/DecodeGraph.h; sourceTree = SOURCE_ROOT; };
 		3DFCD5F217C7E7E400BA3700 /* DecodeStep.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DecodeStep.cpp; path = ../../moses/DecodeStep.cpp; sourceTree = SOURCE_ROOT; };
@@ -1084,11 +1055,7 @@
 		3DFCD63B17C7E7E400BA3700 /* FloydWarshall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FloydWarshall.h; path = ../../moses/FloydWarshall.h; sourceTree = SOURCE_ROOT; };
 		3DFCD63C17C7E7E400BA3700 /* GenerationDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GenerationDictionary.cpp; path = ../../moses/GenerationDictionary.cpp; sourceTree = SOURCE_ROOT; };
 		3DFCD63D17C7E7E400BA3700 /* GenerationDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GenerationDictionary.h; path = ../../moses/GenerationDictionary.h; sourceTree = SOURCE_ROOT; };
-		3DFCD64017C7E7E400BA3700 /* Sampling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sampling.h; sourceTree = "<group>"; };
-		3DFCD64217C7E7E400BA3700 /* NBestList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBestList.h; sourceTree = "<group>"; };
-		3DFCD64317C7E7E400BA3700 /* VectorIndexSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VectorIndexSorter.h; sourceTree = "<group>"; };
 		3DFCD64417C7E7E400BA3700 /* gzfilebuf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gzfilebuf.h; path = ../../moses/gzfilebuf.h; sourceTree = SOURCE_ROOT; };
-		3DFCD64517C7E7E400BA3700 /* hypergraph.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hypergraph.proto; path = ../../moses/hypergraph.proto; sourceTree = SOURCE_ROOT; };
 		3DFCD64617C7E7E400BA3700 /* HypoList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HypoList.h; path = ../../moses/HypoList.h; sourceTree = SOURCE_ROOT; };
 		3DFCD64717C7E7E400BA3700 /* Hypothesis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Hypothesis.cpp; path = ../../moses/Hypothesis.cpp; sourceTree = SOURCE_ROOT; };
 		3DFCD64817C7E7E400BA3700 /* Hypothesis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hypothesis.h; path = ../../moses/Hypothesis.h; sourceTree = SOURCE_ROOT; };
@@ -1106,12 +1073,6 @@
 		3DFCD65417C7E7E400BA3700 /* InputPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InputPath.h; path = ../../moses/InputPath.h; sourceTree = SOURCE_ROOT; };
 		3DFCD65517C7E7E400BA3700 /* InputType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InputType.cpp; path = ../../moses/InputType.cpp; sourceTree = SOURCE_ROOT; };
 		3DFCD65617C7E7E400BA3700 /* InputType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InputType.h; path = ../../moses/InputType.h; sourceTree = SOURCE_ROOT; };
-		3DFCD65817C7E7E400BA3700 /* LexicalReordering.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexicalReordering.cpp; path = ../../moses/LexicalReordering.cpp; sourceTree = SOURCE_ROOT; };
-		3DFCD65917C7E7E400BA3700 /* LexicalReordering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexicalReordering.h; path = ../../moses/LexicalReordering.h; sourceTree = SOURCE_ROOT; };
-		3DFCD65A17C7E7E400BA3700 /* LexicalReorderingState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexicalReorderingState.cpp; path = ../../moses/LexicalReorderingState.cpp; sourceTree = SOURCE_ROOT; };
-		3DFCD65B17C7E7E400BA3700 /* LexicalReorderingState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexicalReorderingState.h; path = ../../moses/LexicalReorderingState.h; sourceTree = SOURCE_ROOT; };
-		3DFCD65C17C7E7E400BA3700 /* LexicalReorderingTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LexicalReorderingTable.cpp; path = ../../moses/LexicalReorderingTable.cpp; sourceTree = SOURCE_ROOT; };
-		3DFCD65D17C7E7E400BA3700 /* LexicalReorderingTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexicalReorderingTable.h; path = ../../moses/LexicalReorderingTable.h; sourceTree = SOURCE_ROOT; };
 		3DFCD65F17C7E7E400BA3700 /* Backward.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Backward.cpp; sourceTree = "<group>"; };
 		3DFCD66017C7E7E400BA3700 /* Backward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Backward.h; sourceTree = "<group>"; };
 		3DFCD66117C7E7E400BA3700 /* BackwardLMState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BackwardLMState.cpp; sourceTree = "<group>"; };
@@ -1124,8 +1085,6 @@
 		3DFCD66817C7E7E400BA3700 /* IRST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRST.h; sourceTree = "<group>"; };
 		3DFCD66917C7E7E400BA3700 /* Implementation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Implementation.cpp; sourceTree = "<group>"; };
 		3DFCD66A17C7E7E400BA3700 /* Implementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Implementation.h; sourceTree = "<group>"; };
-		3DFCD66C17C7E7E400BA3700 /* Joint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Joint.cpp; sourceTree = "<group>"; };
-		3DFCD66D17C7E7E400BA3700 /* Joint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Joint.h; sourceTree = "<group>"; };
 		3DFCD66E17C7E7E400BA3700 /* Ken.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ken.cpp; sourceTree = "<group>"; };
 		3DFCD66F17C7E7E400BA3700 /* Ken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ken.h; sourceTree = "<group>"; };
 		3DFCD67017C7E7E400BA3700 /* LDHT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LDHT.cpp; sourceTree = "<group>"; };
@@ -1145,7 +1104,6 @@
 		3DFCD67E17C7E7E400BA3700 /* SRI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRI.h; sourceTree = "<group>"; };
 		3DFCD67F17C7E7E400BA3700 /* SingleFactor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SingleFactor.cpp; sourceTree = "<group>"; };
 		3DFCD68017C7E7E400BA3700 /* SingleFactor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleFactor.h; sourceTree = "<group>"; };
-		3DFCD68117C7E7E400BA3700 /* backward.arpa */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = backward.arpa; sourceTree = "<group>"; };
 		3DFCD68817C7E7E400BA3700 /* LVoc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LVoc.cpp; path = ../../moses/LVoc.cpp; sourceTree = SOURCE_ROOT; };
 		3DFCD68917C7E7E400BA3700 /* LVoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LVoc.h; path = ../../moses/LVoc.h; sourceTree = SOURCE_ROOT; };
 		3DFCD68A17C7E7E400BA3700 /* Manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Manager.cpp; path = ../../moses/Manager.cpp; sourceTree = SOURCE_ROOT; };
@@ -1171,9 +1129,6 @@
 		3DFCD69E17C7E7E400BA3700 /* PrefixTreeMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrefixTreeMap.h; path = ../../moses/PrefixTreeMap.h; sourceTree = SOURCE_ROOT; };
 		3DFCD69F17C7E7E400BA3700 /* ReorderingConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReorderingConstraint.cpp; path = ../../moses/ReorderingConstraint.cpp; sourceTree = SOURCE_ROOT; };
 		3DFCD6A017C7E7E400BA3700 /* ReorderingConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReorderingConstraint.h; path = ../../moses/ReorderingConstraint.h; sourceTree = SOURCE_ROOT; };
-		3DFCD6A117C7E7E400BA3700 /* ReorderingStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReorderingStack.cpp; path = ../../moses/ReorderingStack.cpp; sourceTree = SOURCE_ROOT; };
-		3DFCD6A217C7E7E400BA3700 /* ReorderingStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReorderingStack.h; path = ../../moses/ReorderingStack.h; sourceTree = SOURCE_ROOT; };
-		3DFCD6A317C7E7E400BA3700 /* rule.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = rule.proto; path = ../../moses/rule.proto; sourceTree = SOURCE_ROOT; };
 		3DFCD6A417C7E7E400BA3700 /* RuleCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RuleCube.cpp; path = ../../moses/RuleCube.cpp; sourceTree = SOURCE_ROOT; };
 		3DFCD6A517C7E7E400BA3700 /* RuleCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RuleCube.h; path = ../../moses/RuleCube.h; sourceTree = SOURCE_ROOT; };
 		3DFCD6A617C7E7E400BA3700 /* RuleCubeItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RuleCubeItem.cpp; path = ../../moses/RuleCubeItem.cpp; sourceTree = SOURCE_ROOT; };
@@ -1356,8 +1311,6 @@
 		3DFCD76A17C7E7E500BA3700 /* TrellisPathList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrellisPathList.h; path = ../../moses/TrellisPathList.h; sourceTree = SOURCE_ROOT; };
 		3DFCD76B17C7E7E500BA3700 /* TypeDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TypeDef.h; path = ../../moses/TypeDef.h; sourceTree = SOURCE_ROOT; };
 		3DFCD76C17C7E7E500BA3700 /* UniqueObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UniqueObject.h; path = ../../moses/UniqueObject.h; sourceTree = SOURCE_ROOT; };
-		3DFCD76D17C7E7E500BA3700 /* UserMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UserMessage.cpp; path = ../../moses/UserMessage.cpp; sourceTree = SOURCE_ROOT; };
-		3DFCD76E17C7E7E500BA3700 /* UserMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserMessage.h; path = ../../moses/UserMessage.h; sourceTree = SOURCE_ROOT; };
 		3DFCD76F17C7E7E500BA3700 /* Util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Util.cpp; path = ../../moses/Util.cpp; sourceTree = SOURCE_ROOT; };
 		3DFCD77017C7E7E500BA3700 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = ../../moses/Util.h; sourceTree = SOURCE_ROOT; };
 		3DFCD77117C7E7E500BA3700 /* Word.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Word.cpp; path = ../../moses/Word.cpp; sourceTree = SOURCE_ROOT; };
@@ -1536,7 +1489,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DFA82C017D11EFD005EE8B8 /* libmoses.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1572,7 +1524,6 @@
 			isa = PBXGroup;
 			children = (
 				3DFCD60117C7E7E400BA3700 /* FF */,
-				3DFCD63E17C7E7E400BA3700 /* generic */,
 				3DFCD65E17C7E7E400BA3700 /* LM */,
 				3DFCD6CB17C7E7E400BA3700 /* TranslationModel */,
 				3DFCD5C517C7E7E400BA3700 /* AlignmentInfo.cpp */,
@@ -1605,19 +1556,8 @@
 				3DFCD5E017C7E7E400BA3700 /* ChartTranslationOptionList.h */,
 				3DFCD5E117C7E7E400BA3700 /* ChartTranslationOptions.cpp */,
 				3DFCD5E217C7E7E400BA3700 /* ChartTranslationOptions.h */,
-				3DFCD5E317C7E7E400BA3700 /* ChartTrellisDetour.cpp */,
-				3DFCD5E417C7E7E400BA3700 /* ChartTrellisDetour.h */,
-				3DFCD5E517C7E7E400BA3700 /* ChartTrellisDetourQueue.cpp */,
-				3DFCD5E617C7E7E400BA3700 /* ChartTrellisDetourQueue.h */,
-				3DFCD5E717C7E7E400BA3700 /* ChartTrellisNode.cpp */,
-				3DFCD5E817C7E7E400BA3700 /* ChartTrellisNode.h */,
-				3DFCD5E917C7E7E400BA3700 /* ChartTrellisPath.cpp */,
-				3DFCD5EA17C7E7E400BA3700 /* ChartTrellisPath.h */,
-				3DFCD5EB17C7E7E400BA3700 /* ChartTrellisPathList.h */,
 				3DFCD5EC17C7E7E400BA3700 /* ConfusionNet.cpp */,
 				3DFCD5ED17C7E7E400BA3700 /* ConfusionNet.h */,
-				3DFCD5EE17C7E7E400BA3700 /* DecodeFeature.cpp */,
-				3DFCD5EF17C7E7E400BA3700 /* DecodeFeature.h */,
 				3DFCD5F017C7E7E400BA3700 /* DecodeGraph.cpp */,
 				3DFCD5F117C7E7E400BA3700 /* DecodeGraph.h */,
 				3DFCD5F217C7E7E400BA3700 /* DecodeStep.cpp */,
@@ -1643,7 +1583,6 @@
 				3DFCD63C17C7E7E400BA3700 /* GenerationDictionary.cpp */,
 				3DFCD63D17C7E7E400BA3700 /* GenerationDictionary.h */,
 				3DFCD64417C7E7E400BA3700 /* gzfilebuf.h */,
-				3DFCD64517C7E7E400BA3700 /* hypergraph.proto */,
 				3DFCD64617C7E7E400BA3700 /* HypoList.h */,
 				3DFCD64717C7E7E400BA3700 /* Hypothesis.cpp */,
 				3DFCD64817C7E7E400BA3700 /* Hypothesis.h */,
@@ -1661,12 +1600,6 @@
 				3DFCD65417C7E7E400BA3700 /* InputPath.h */,
 				3DFCD65517C7E7E400BA3700 /* InputType.cpp */,
 				3DFCD65617C7E7E400BA3700 /* InputType.h */,
-				3DFCD65817C7E7E400BA3700 /* LexicalReordering.cpp */,
-				3DFCD65917C7E7E400BA3700 /* LexicalReordering.h */,
-				3DFCD65A17C7E7E400BA3700 /* LexicalReorderingState.cpp */,
-				3DFCD65B17C7E7E400BA3700 /* LexicalReorderingState.h */,
-				3DFCD65C17C7E7E400BA3700 /* LexicalReorderingTable.cpp */,
-				3DFCD65D17C7E7E400BA3700 /* LexicalReorderingTable.h */,
 				3DFCD68817C7E7E400BA3700 /* LVoc.cpp */,
 				3DFCD68917C7E7E400BA3700 /* LVoc.h */,
 				3DFCD68A17C7E7E400BA3700 /* Manager.cpp */,
@@ -1692,9 +1625,6 @@
 				3DFCD69E17C7E7E400BA3700 /* PrefixTreeMap.h */,
 				3DFCD69F17C7E7E400BA3700 /* ReorderingConstraint.cpp */,
 				3DFCD6A017C7E7E400BA3700 /* ReorderingConstraint.h */,
-				3DFCD6A117C7E7E400BA3700 /* ReorderingStack.cpp */,
-				3DFCD6A217C7E7E400BA3700 /* ReorderingStack.h */,
-				3DFCD6A317C7E7E400BA3700 /* rule.proto */,
 				3DFCD6A417C7E7E400BA3700 /* RuleCube.cpp */,
 				3DFCD6A517C7E7E400BA3700 /* RuleCube.h */,
 				3DFCD6A617C7E7E400BA3700 /* RuleCubeItem.cpp */,
@@ -1753,8 +1683,6 @@
 				3DFCD76A17C7E7E500BA3700 /* TrellisPathList.h */,
 				3DFCD76B17C7E7E500BA3700 /* TypeDef.h */,
 				3DFCD76C17C7E7E500BA3700 /* UniqueObject.h */,
-				3DFCD76D17C7E7E500BA3700 /* UserMessage.cpp */,
-				3DFCD76E17C7E7E500BA3700 /* UserMessage.h */,
 				3DFCD76F17C7E7E500BA3700 /* Util.cpp */,
 				3DFCD77017C7E7E500BA3700 /* Util.h */,
 				3DFCD77117C7E7E500BA3700 /* Word.cpp */,
@@ -2629,33 +2557,6 @@
 			path = "OSM-Feature";
 			sourceTree = "<group>";
 		};
-		3DFCD63E17C7E7E400BA3700 /* generic */ = {
-			isa = PBXGroup;
-			children = (
-				3DFCD63F17C7E7E400BA3700 /* sampling */,
-				3DFCD64117C7E7E400BA3700 /* sorting */,
-			);
-			name = generic;
-			path = ../../moses/generic;
-			sourceTree = SOURCE_ROOT;
-		};
-		3DFCD63F17C7E7E400BA3700 /* sampling */ = {
-			isa = PBXGroup;
-			children = (
-				3DFCD64017C7E7E400BA3700 /* Sampling.h */,
-			);
-			path = sampling;
-			sourceTree = "<group>";
-		};
-		3DFCD64117C7E7E400BA3700 /* sorting */ = {
-			isa = PBXGroup;
-			children = (
-				3DFCD64217C7E7E400BA3700 /* NBestList.h */,
-				3DFCD64317C7E7E400BA3700 /* VectorIndexSorter.h */,
-			);
-			path = sorting;
-			sourceTree = "<group>";
-		};
 		3DFCD65E17C7E7E400BA3700 /* LM */ = {
 			isa = PBXGroup;
 			children = (
@@ -2671,8 +2572,6 @@
 				3DFCD66817C7E7E400BA3700 /* IRST.h */,
 				3DFCD66917C7E7E400BA3700 /* Implementation.cpp */,
 				3DFCD66A17C7E7E400BA3700 /* Implementation.h */,
-				3DFCD66C17C7E7E400BA3700 /* Joint.cpp */,
-				3DFCD66D17C7E7E400BA3700 /* Joint.h */,
 				3DFCD66E17C7E7E400BA3700 /* Ken.cpp */,
 				3DFCD66F17C7E7E400BA3700 /* Ken.h */,
 				3DFCD67017C7E7E400BA3700 /* LDHT.cpp */,
@@ -2692,59 +2591,10 @@
 				3DFCD67E17C7E7E400BA3700 /* SRI.h */,
 				3DFCD67F17C7E7E400BA3700 /* SingleFactor.cpp */,
 				3DFCD68017C7E7E400BA3700 /* SingleFactor.h */,
-				3DFCD68117C7E7E400BA3700 /* backward.arpa */,
-				3DFCD68217C7E7E400BA3700 /* bin */,
 			);
 			name = LM;
 			path = ../../moses/LM;
 			sourceTree = SOURCE_ROOT;
-		};
-		3DFCD68217C7E7E400BA3700 /* bin */ = {
-			isa = PBXGroup;
-			children = (
-				3DFCD68317C7E7E400BA3700 /* gcc-4.4.7 */,
-			);
-			path = bin;
-			sourceTree = "<group>";
-		};
-		3DFCD68317C7E7E400BA3700 /* gcc-4.4.7 */ = {
-			isa = PBXGroup;
-			children = (
-				3DFCD68417C7E7E400BA3700 /* release */,
-			);
-			path = "gcc-4.4.7";
-			sourceTree = "<group>";
-		};
-		3DFCD68417C7E7E400BA3700 /* release */ = {
-			isa = PBXGroup;
-			children = (
-				3DFCD68517C7E7E400BA3700 /* debug-symbols-on */,
-			);
-			path = release;
-			sourceTree = "<group>";
-		};
-		3DFCD68517C7E7E400BA3700 /* debug-symbols-on */ = {
-			isa = PBXGroup;
-			children = (
-				3DFCD68617C7E7E400BA3700 /* link-static */,
-			);
-			path = "debug-symbols-on";
-			sourceTree = "<group>";
-		};
-		3DFCD68617C7E7E400BA3700 /* link-static */ = {
-			isa = PBXGroup;
-			children = (
-				3DFCD68717C7E7E400BA3700 /* threading-multi */,
-			);
-			path = "link-static";
-			sourceTree = "<group>";
-		};
-		3DFCD68717C7E7E400BA3700 /* threading-multi */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "threading-multi";
-			sourceTree = "<group>";
 		};
 		3DFCD6CB17C7E7E400BA3700 /* TranslationModel */ = {
 			isa = PBXGroup;
@@ -3665,12 +3515,7 @@
 				3DFCD79317C7E7E500BA3700 /* ChartTranslationOption.cpp in Sources */,
 				3DFCD79517C7E7E500BA3700 /* ChartTranslationOptionList.cpp in Sources */,
 				3DFCD79717C7E7E500BA3700 /* ChartTranslationOptions.cpp in Sources */,
-				3DFCD79917C7E7E500BA3700 /* ChartTrellisDetour.cpp in Sources */,
-				3DFCD79B17C7E7E500BA3700 /* ChartTrellisDetourQueue.cpp in Sources */,
-				3DFCD79D17C7E7E500BA3700 /* ChartTrellisNode.cpp in Sources */,
-				3DFCD79F17C7E7E500BA3700 /* ChartTrellisPath.cpp in Sources */,
 				3DFCD7A217C7E7E500BA3700 /* ConfusionNet.cpp in Sources */,
-				3DFCD7A417C7E7E500BA3700 /* DecodeFeature.cpp in Sources */,
 				3DFCD7A617C7E7E500BA3700 /* DecodeGraph.cpp in Sources */,
 				3DFCD7A817C7E7E500BA3700 /* DecodeStep.cpp in Sources */,
 				3DFCD7AA17C7E7E500BA3700 /* DecodeStepGeneration.cpp in Sources */,
@@ -3715,24 +3560,14 @@
 				3DFCD80117C7E7E500BA3700 /* InputFileStream.cpp in Sources */,
 				3DFCD80317C7E7E500BA3700 /* InputPath.cpp in Sources */,
 				3DFCD80517C7E7E500BA3700 /* InputType.cpp in Sources */,
-				3DFCD80817C7E7E500BA3700 /* LexicalReordering.cpp in Sources */,
-				3DFCD80A17C7E7E500BA3700 /* LexicalReorderingState.cpp in Sources */,
-				3DFCD80C17C7E7E500BA3700 /* LexicalReorderingTable.cpp in Sources */,
 				3DFCD80E17C7E7E500BA3700 /* Backward.cpp in Sources */,
 				3DFCD81017C7E7E500BA3700 /* BackwardLMState.cpp in Sources */,
 				3DFCD81217C7E7E500BA3700 /* BackwardTest.cpp in Sources */,
 				3DFCD81317C7E7E500BA3700 /* Base.cpp in Sources */,
-				3DFCD81617C7E7E500BA3700 /* IRST.cpp in Sources */,
 				3DFCD81817C7E7E500BA3700 /* Implementation.cpp in Sources */,
-				3DFCD81B17C7E7E500BA3700 /* Joint.cpp in Sources */,
 				3DFCD81D17C7E7E500BA3700 /* Ken.cpp in Sources */,
-				3DFCD81F17C7E7E500BA3700 /* LDHT.cpp in Sources */,
 				3DFCD82117C7E7E500BA3700 /* MultiFactor.cpp in Sources */,
-				3DFCD82317C7E7E500BA3700 /* ORLM.cpp in Sources */,
-				3DFCD82517C7E7E500BA3700 /* ParallelBackoff.cpp in Sources */,
-				3DFCD82817C7E7E500BA3700 /* Rand.cpp in Sources */,
 				3DFCD82A17C7E7E500BA3700 /* Remote.cpp in Sources */,
-				3DFCD82C17C7E7E500BA3700 /* SRI.cpp in Sources */,
 				3DFCD82E17C7E7E500BA3700 /* SingleFactor.cpp in Sources */,
 				3DFCD83017C7E7E500BA3700 /* LVoc.cpp in Sources */,
 				3DFCD83217C7E7E500BA3700 /* Manager.cpp in Sources */,
@@ -3745,7 +3580,6 @@
 				3DFCD84217C7E7E500BA3700 /* Phrase.cpp in Sources */,
 				3DFCD84517C7E7E500BA3700 /* PrefixTreeMap.cpp in Sources */,
 				3DFCD84717C7E7E500BA3700 /* ReorderingConstraint.cpp in Sources */,
-				3DFCD84917C7E7E500BA3700 /* ReorderingStack.cpp in Sources */,
 				3DFCD84B17C7E7E500BA3700 /* RuleCube.cpp in Sources */,
 				3DFCD84D17C7E7E500BA3700 /* RuleCubeItem.cpp in Sources */,
 				3DFCD84F17C7E7E500BA3700 /* RuleCubeQueue.cpp in Sources */,
@@ -3821,7 +3655,6 @@
 				3DFCD8FC17C7E7E500BA3700 /* TreeInput.cpp in Sources */,
 				3DFCD8FE17C7E7E500BA3700 /* TrellisPath.cpp in Sources */,
 				3DFCD90017C7E7E500BA3700 /* TrellisPathCollection.cpp in Sources */,
-				3DFCD90517C7E7E500BA3700 /* UserMessage.cpp in Sources */,
 				3DFCD90717C7E7E500BA3700 /* Util.cpp in Sources */,
 				3DFCD90917C7E7E500BA3700 /* Word.cpp in Sources */,
 				3DFCD90B17C7E7E500BA3700 /* WordLattice.cpp in Sources */,
@@ -3984,16 +3817,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_OPTIMIZATION_LEVEL = 0;
-				HEADER_SEARCH_PATHS = (
-					../..,
-					"$(XCODE_MOSES_INCLUDE_BOOST)",
-					"$(XCODE_MOSES_INCLUDE_IRSTLM)",
-					"$(XCODE_MOSES_INCLUDE_RANDLM)",
-					"$(XCODE_MOSES_INCLUDE_SRILM)",
-					"$(XCODE_MOSES_INCLUDE_SYNLM_RVTL)",
-					"$(XCODE_MOSES_INCLUDE_SYNLM_WSJPARSE)",
-					"$(XCODE_MOSES_INCLUDE_CMPH)",
-				);
 				PRODUCT_NAME = moses;
 			};
 			name = Debug;
@@ -4001,16 +3824,6 @@
 		1DEB91ED08733DB70010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					../..,
-					"$(XCODE_MOSES_INCLUDE_BOOST)",
-					"$(XCODE_MOSES_INCLUDE_IRSTLM)",
-					"$(XCODE_MOSES_INCLUDE_RANDLM)",
-					"$(XCODE_MOSES_INCLUDE_SRILM)",
-					"$(XCODE_MOSES_INCLUDE_SYNLM_RVTL)",
-					"$(XCODE_MOSES_INCLUDE_SYNLM_WSJPARSE)",
-					"$(XCODE_MOSES_INCLUDE_CMPH)",
-				);
 				PRODUCT_NAME = moses;
 			};
 			name = Release;
@@ -4018,7 +3831,6 @@
 		1DEB91F008733DB70010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = automatic;
@@ -4028,43 +3840,64 @@
 					"_FILE_OFFSET_BITS=64",
 					IS_XCODE,
 					"KENLM_MAX_ORDER=7",
-					LM_IRST,
-					LM_SRI,
 					"MAX_NUM_FACTORS=4",
-					TRACE_ENABLE,
 					WITH_THREADS,
 				);
-				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					../..,
+					/sw/include,
+					/usr/include,
+					/usr/local/include,
+					"/sw/opt/boost-1_55/include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/sw/lib,
+					/usr/lib,
+					/usr/local/lib,
+					"/sw/opt/boost-1_55/lib",
+				);
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = "";
-				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
+				OTHER_LDFLAGS = (
+					"-lz",
+					"-lboost_iostreams-mt",
+				);
 			};
 			name = Debug;
 		};
 		1DEB91F108733DB70010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					HAVE_CMPH,
 					"_FILE_OFFSET_BITS=64",
 					IS_XCODE,
 					"KENLM_MAX_ORDER=7",
-					LM_IRST,
-					LM_SRI,
 					"MAX_NUM_FACTORS=4",
-					TRACE_ENABLE,
 					WITH_THREADS,
 				);
-				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					../..,
+					/sw/include,
+					/usr/include,
+					/usr/local/include,
+					"/sw/opt/boost-1_55/include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/sw/lib,
+					/usr/lib,
+					/usr/local/lib,
+					"/sw/opt/boost-1_55/lib",
+				);
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = "";
-				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
+				OTHER_LDFLAGS = (
+					"-lz",
+					"-lboost_iostreams-mt",
+				);
 			};
 			name = Release;
 		};

@@ -45,7 +45,7 @@ void printHelp(char **argv)
 int main(int argc, char** argv)
 {
 
-  std::string inFilePath;
+  std::string inFilePath("-");
   std::string outFilePath("out");
   std::string tempfilePath;
 

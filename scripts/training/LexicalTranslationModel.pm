@@ -3,6 +3,9 @@ package LexicalTranslationModel;
 use strict;
 use warnings;
 
+use IO::Uncompress::Gunzip;
+use IO::Uncompress::Bunzip2;
+
 BEGIN {
     require Exporter;
 
@@ -11,30 +14,6 @@ BEGIN {
     our @EXPORT    = qw(get_lexical);
     our @EXPORT_OK = qw();
 
-}
-
-sub open_compressed {
-
-    # utilities
-    my $ZCAT = "gzip -cd";
-    my $BZCAT = "bzcat";
-
-    my ($file) = @_;
-    print "FILE: $file\n";
-
-    # add extensions, if necessary
-    $file = $file.".bz2" if ! -e $file && -e $file.".bz2";
-    $file = $file.".gz"  if ! -e $file && -e $file.".gz";
-   
-    # pipe zipped, if necessary
-    return "$BZCAT $file|" if $file =~ /\.bz2$/;
-    return "$ZCAT $file|"  if $file =~ /\.gz$/;    
-    return $file;
-}
-
-sub fix_spaces {
-        my ($in) = @_;
-        $$in =~ s/[ \t]+/ /g; $$in =~ s/[ \t]$//; $$in =~ s/^[ \t]//;    
 }
 
 sub get_lexical {
@@ -84,26 +63,36 @@ sub get_lexical {
 
 sub get_lexical_counts {
     my ($alignment_file_e,$alignment_file_f,$alignment_file_a,$instance_weights_file,$WORD_TRANSLATION,$TOTAL_FOREIGN,$TOTAL_ENGLISH) = @_;
-    open(E,&open_compressed($alignment_file_e)) or die "ERROR: Can't read $alignment_file_e";
-    open(F,&open_compressed($alignment_file_f)) or die "ERROR: Can't read $alignment_file_f";
-    open(A,&open_compressed($alignment_file_a)) or die "ERROR: Can't read $alignment_file_a";
+	my ($E, $F, $A);
+	-e "$alignment_file_e.gz" ?
+	$E = new IO::Uncompress::Gunzip("$alignment_file_e.gz") :
+	(-e "$alignment_file_e.bz2" ? $E = new IO::Uncompress::Bunzip2("$alignment_file_e.bz2") : open $E, "<$alignment_file_e")
+	or die "ERROR: Can't read $alignment_file_e";
+	-e "$alignment_file_f.gz" ?
+	$F = new IO::Uncompress::Gunzip("$alignment_file_f.gz") :
+	(-e "$alignment_file_f.bz2" ? $F = new IO::Uncompress::Bunzip2("$alignment_file_f.bz2") : open $F, "<$alignment_file_f")
+	or die "ERROR: Can't read $alignment_file_f";
+	-e "$alignment_file_a.gz" ?
+	$A = new IO::Uncompress::Gunzip("$alignment_file_a.gz") :
+	(-e "$alignment_file_a.bz2" ? $A = new IO::Uncompress::Bunzip2("$alignment_file_a.bz2") : open $A, "<$alignment_file_a")
+	or die "ERROR: Can't read $alignment_file_a";
     my $W = undef;
     if (defined($instance_weights_file) && $instance_weights_file) {
       open($W, $instance_weights_file) or die "ERROR: Can't read $instance_weights_file";
     }
 
     my $alignment_id = 0;
-    while(my $e = <E>) {
+    while(my $e = <$E>) {
         if (($alignment_id++ % 1000) == 0) { print STDERR "!"; }
-        chomp($e); fix_spaces(\$e);
-        my @ENGLISH = split(/ /,$e);
-        my $f = <F>; chomp($f); fix_spaces(\$f);
-        my @FOREIGN = split(/ /,$f);
-        my $a = <A>; chomp($a); fix_spaces(\$a);
+        chomp($e); $e =~ s/^\s+//;
+        my @ENGLISH = split(/[ \t]/,$e);
+        my $f = <$F>; chomp($f); $f =~ s/^\s+//;
+        my @FOREIGN = split(/[ \t]/,$f);
+        my $a = <$A>; chomp($a);  $a =~ s/^\s+//;
         my $iw = 1; # instance weight
         $iw = <$W> if defined $W;
         my (%FOREIGN_ALIGNED,%ENGLISH_ALIGNED);
-        foreach (split(/ /,$a)) {
+        foreach (split(' ',$a)) {
             my ($fi,$ei) = split(/\-/);
 	    if ($fi >= scalar(@FOREIGN) || $ei >= scalar(@ENGLISH)) {
 		print STDERR "alignment point ($fi,$ei) out of range (0-$#FOREIGN,0-$#ENGLISH) in line $alignment_id, ignoring\n";
@@ -135,9 +124,6 @@ sub get_lexical_counts {
         }
     }
     print STDERR "\n";
-    close(A);
-    close(F);
-    close(E);
 }
 
 END {

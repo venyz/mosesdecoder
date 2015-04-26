@@ -20,6 +20,7 @@
 #include <cstdio>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <vector>
 #include <string>
 #include <cstdlib>
@@ -30,7 +31,11 @@
 #include "OutputFileStream.h"
 #include "PropertiesConsolidator.h"
 
+#include "Bz2LineReader.h"
+#include "Bz2LineWriter.h"
+
 using namespace std;
+using namespace bg_zhechev_ventsislav;
 
 bool hierarchicalFlag = false;
 bool onlyDirectFlag = false;
@@ -49,29 +54,30 @@ inline float maybeLogProb( float a )
   return logProbFlag ? log(a) : a;
 }
 
-void processFiles( char*, char*, char*, char*, char*, char* );
-void loadCountOfCounts( char* );
+void processFiles( string, string, string, string, string, string );
+void loadCountOfCounts( string );
 void breakdownCoreAndSparse( string combined, string &core, string &sparse );
 bool getLine( istream &fileP, vector< string > &item );
-vector< string > splitLine(const char *line);
+vector< string > splitLine(const string& line);
 vector< int > countBin;
 bool sparseCountBinFeatureFlag = false;
 
 int main(int argc, char* argv[])
 {
-  cerr << "Consolidate v2.0 written by Philipp Koehn\n"
-       << "consolidating direct and indirect rule tables\n";
+  cerr	<< "Consolidate v3.0 written by Philipp Koehn\n"
+				<< "Modified by Ventsislav Zhechev, Autodesk Development Sàrl" << endl
+				<< "consolidating direct and indirect rule tables\n";
 
   if (argc < 4) {
     cerr << "syntax: consolidate phrase-table.direct phrase-table.indirect phrase-table.consolidated [--Hierarchical] [--OnlyDirect] [--PhraseCount] [--GoodTuring counts-of-counts-file] [--KneserNey counts-of-counts-file] [--LowCountFeature] [--SourceLabels source-labels-file]  [--PartsOfSpeech parts-of-speech-file] [--MinScore id:threshold[,id:threshold]*]\n";
     exit(1);
   }
-  char* &fileNameDirect = argv[1];
-  char* &fileNameIndirect = argv[2];
-  char* &fileNameConsolidated = argv[3];
-  char* fileNameCountOfCounts = 0;
-  char* fileNameSourceLabelSet = 0;
-  char* fileNamePartsOfSpeechVocabulary = 0;
+	const string fileNameDirect = argv[1];
+	const string fileNameIndirect = argv[2];
+	const string fileNameConsolidated = argv[3];
+  string fileNameCountOfCounts = "";
+  string fileNameSourceLabelSet = "";
+  string fileNamePartsOfSpeechVocabulary = "";
 
   for(int i=4; i<argc; i++) {
     if (strcmp(argv[i],"--Hierarchical") == 0) {
@@ -180,25 +186,22 @@ int main(int argc, char* argv[])
 vector< float > countOfCounts;
 vector< float > goodTuringDiscount;
 float kneserNey_D1, kneserNey_D2, kneserNey_D3, totalCount = -1;
-void loadCountOfCounts( char* fileNameCountOfCounts )
+void loadCountOfCounts( string fileNameCountOfCounts )
 {
-  Moses::InputFileStream fileCountOfCounts(fileNameCountOfCounts);
-  if (fileCountOfCounts.fail()) {
-    cerr << "ERROR: could not open count of counts file " << fileNameCountOfCounts << endl;
-    exit(1);
-  }
-  istream &fileP = fileCountOfCounts;
+  Bz2LineReader fileCountOfCounts(fileNameCountOfCounts);
 
   countOfCounts.push_back(0.0);
 
   string line;
-  while (getline(fileP, line)) {
-    if (totalCount < 0)
+	for (unsigned i = 1; ; ++i) {
+		string line = fileCountOfCounts.readLine();
+		if (line.empty()) break;
+
+		if (totalCount < 0)
       totalCount = atof(line.c_str()); // total number of distinct phrase pairs
     else
       countOfCounts.push_back( atof(line.c_str()) );
   }
-  fileCountOfCounts.Close();
 
   // compute Good Turing discounts
   if (goodTuringFlag) {
@@ -223,34 +226,17 @@ void loadCountOfCounts( char* fileNameCountOfCounts )
   if (kneserNey_D3 > 2.9) kneserNey_D3 = 2.9;
 }
 
-void processFiles( char* fileNameDirect, char* fileNameIndirect, char* fileNameConsolidated, char* fileNameCountOfCounts, char* fileNameSourceLabelSet, char* fileNamePartsOfSpeechVocabulary )
+void processFiles( string fileNameDirect, string fileNameIndirect, string fileNameConsolidated, string fileNameCountOfCounts, string fileNameSourceLabelSet, string fileNamePartsOfSpeechVocabulary )
 {
   if (goodTuringFlag || kneserNeyFlag)
     loadCountOfCounts( fileNameCountOfCounts );
 
-  // open input files
-  Moses::InputFileStream fileDirect(fileNameDirect);
-  Moses::InputFileStream fileIndirect(fileNameIndirect);
+	// open input files
+	Bz2LineReader fileDirect(fileNameDirect);
+	Bz2LineReader fileIndirect(fileNameIndirect);
 
-  if (fileDirect.fail()) {
-    cerr << "ERROR: could not open phrase table file " << fileNameDirect << endl;
-    exit(1);
-  }
-  istream &fileDirectP = fileDirect;
-
-  if (fileIndirect.fail()) {
-    cerr << "ERROR: could not open phrase table file " << fileNameIndirect << endl;
-    exit(1);
-  }
-  istream &fileIndirectP = fileIndirect;
-
-  // open output file: consolidated phrase table
-  Moses::OutputFileStream fileConsolidated;
-  bool success = fileConsolidated.Open(fileNameConsolidated);
-  if (!success) {
-    cerr << "ERROR: could not open output file " << fileNameConsolidated << endl;
-    exit(1);
-  }
+		// open output file: consolidated phrase table
+	Bz2LineWriter fileConsolidated(fileNameConsolidated);
 
   // create properties consolidator
   // (in case any additional phrase property requires further processing)
@@ -263,15 +249,18 @@ void processFiles( char* fileNameDirect, char* fileNameIndirect, char* fileNameC
   }
 
   // loop through all extracted phrase translations
-  int i=0;
-  while(true) {
-    i++;
-    if (i%100000 == 0) cerr << "." << flush;
-
-    vector< string > itemDirect, itemIndirect;
-    if (! getLine(fileIndirectP,itemIndirect) ||
-        ! getLine(fileDirectP,  itemDirect  ))
-      break;
+	stringstream streamConsolidated;
+	for (unsigned i = 1; ; ++i) {
+		string directLine = fileDirect.readLine();
+		if (directLine.empty()) break;
+		string indirectLine = fileIndirect.readLine();
+		if (indirectLine.empty()) break;
+		
+		if (i % 10000000 == 0) cerr << "[consolidate:" << i << "]" << flush;
+		if (i % 100000 == 0) cerr << "." << flush;
+		
+		vector<string> itemDirect = splitLine(directLine);
+		vector<string> itemIndirect = splitLine(indirectLine);
 
     // direct: target source alignment probabilities
     // indirect: source target probabilities
@@ -335,26 +324,26 @@ void processFiles( char* fileNameDirect, char* fileNameIndirect, char* fileNameC
     }
 
     // output hierarchical phrase pair (with separated labels)
-    fileConsolidated << itemDirect[0] << " ||| " << itemDirect[1] << " |||";
+    streamConsolidated << itemDirect[0] << " ||| " << itemDirect[1] << " |||";
 
     // prob indirect
     if (!onlyDirectFlag) {
-      fileConsolidated << " " << maybeLogProb(adjustedCountEF_indirect/countE);
-      fileConsolidated << " " << indirectScores;
+      streamConsolidated << " " << maybeLogProb(adjustedCountEF_indirect/countE);
+      streamConsolidated << " " << indirectScores;
     }
 
     // prob direct
-    fileConsolidated << " " << maybeLogProb(adjustedCountEF/countF);
-    fileConsolidated << " " << directScores;
+    streamConsolidated << " " << maybeLogProb(adjustedCountEF/countF);
+    streamConsolidated << " " << directScores;
 
     // phrase count feature
     if (phraseCountFlag) {
-      fileConsolidated << " " << maybeLogProb(2.718);
+      streamConsolidated << " " << maybeLogProb(2.718);
     }
 
     // low count feature
     if (lowCountFlag) {
-      fileConsolidated << " " << maybeLogProb(exp(-1.0/countEF));
+      streamConsolidated << " " << maybeLogProb(exp(-1.0/countEF));
     }
 
     // count bin feature (as a core feature)
@@ -362,61 +351,62 @@ void processFiles( char* fileNameDirect, char* fileNameIndirect, char* fileNameC
       bool foundBin = false;
       for(size_t i=0; i < countBin.size(); i++) {
         if (!foundBin && countEF <= countBin[i]) {
-          fileConsolidated << " " << maybeLogProb(2.718);
+          streamConsolidated << " " << maybeLogProb(2.718);
           foundBin = true;
         } else {
-          fileConsolidated << " " << maybeLogProb(1);
+          streamConsolidated << " " << maybeLogProb(1);
         }
       }
-      fileConsolidated << " " << maybeLogProb( foundBin ? 1 : 2.718 );
+      streamConsolidated << " " << maybeLogProb( foundBin ? 1 : 2.718 );
     }
 
     // alignment
-    fileConsolidated << " ||| " << itemDirect[2];
+    streamConsolidated << " ||| " << itemDirect[2];
 
     // counts, for debugging
-    fileConsolidated << "||| " << countE << " " << countF << " " << countEF;
+    streamConsolidated << "||| " << countE << " " << countF << " " << countEF;
 
     // sparse features
-    fileConsolidated << " |||";
+    streamConsolidated << " |||";
     if (directSparseScores.compare("") != 0)
-      fileConsolidated << " " << directSparseScores;
+      streamConsolidated << " " << directSparseScores;
     if (indirectSparseScores.compare("") != 0)
-      fileConsolidated << " " << indirectSparseScores;
+      streamConsolidated << " " << indirectSparseScores;
     // count bin feature (as a sparse feature)
     if (sparseCountBinFeatureFlag) {
       bool foundBin = false;
       for(size_t i=0; i < countBin.size(); i++) {
         if (!foundBin && countEF <= countBin[i]) {
-          fileConsolidated << " cb_";
+          streamConsolidated << " cb_";
           if (i == 0 && countBin[i] > 1)
-            fileConsolidated << "1_";
+            streamConsolidated << "1_";
           else if (i > 0 && countBin[i-1]+1 < countBin[i])
-            fileConsolidated << (countBin[i-1]+1) << "_";
-          fileConsolidated << countBin[i] << " 1";
+            streamConsolidated << (countBin[i-1]+1) << "_";
+          streamConsolidated << countBin[i] << " 1";
           foundBin = true;
         }
       }
       if (!foundBin) {
-        fileConsolidated << " cb_max 1";
+        streamConsolidated << " cb_max 1";
       }
     }
 
     // arbitrary key-value pairs
-    fileConsolidated << " |||";
+    streamConsolidated << " |||";
     if (itemDirect.size() >= 6) {
       //if (sourceLabelsFlag) {
-      fileConsolidated << propertiesConsolidator.ProcessPropertiesString(itemDirect[5]);
+      streamConsolidated << propertiesConsolidator.ProcessPropertiesString(itemDirect[5]);
       //} else {
       //  fileConsolidated << itemDirect[5];
       //}
     }
 
-    fileConsolidated << endl;
+    streamConsolidated << endl;
+		
+		fileConsolidated.writeLine(streamConsolidated.str());
+		streamConsolidated.str("");
   }
-  fileDirect.Close();
-  fileIndirect.Close();
-  fileConsolidated.Close();
+
 }
 
 void breakdownCoreAndSparse( string combined, string &core, string &sparse )
@@ -450,8 +440,10 @@ bool getLine( istream &fileP, vector< string > &item )
   return true;
 }
 
-vector< string > splitLine(const char *line)
+vector< string > splitLine(const string& ln)
 {
+	char line[ln.length() + 1];
+	strcpy(line, ln.c_str());
   vector< string > item;
   int start=0;
   int i=0;

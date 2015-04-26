@@ -78,6 +78,11 @@ int main(int argc, char **argv)
     if("-in" == arg && i+1 < argc) {
       ++i;
       inFilePath = argv[i];
+			if (inFilePath == "-") {
+				std::cerr << "This tool cannot use stdin for input, as it is necessary to pass through the data twice!" << std::endl;
+				printHelp(argv);
+				return 1;
+			}
     } else if("-out" == arg && i+1 < argc) {
       ++i;
       outFilePath = argv[i];

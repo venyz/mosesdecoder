@@ -22,7 +22,11 @@
 #include "InputFileStream.h"
 #include "reordering_classes.h"
 
+#include "Bz2LineReader.h"
+
+
 using namespace std;
+using namespace bg_zhechev_ventsislav;
 
 void split_line(const StringPiece& line, StringPiece& foreign, StringPiece& english, StringPiece& wbe, StringPiece& phrase, StringPiece& hier, float& weight);
 void get_orientations(const StringPiece& pair, StringPiece& previous, StringPiece& next);
@@ -39,19 +43,18 @@ public:
 int main(int argc, char* argv[])
 {
 
-  cerr << "Lexical Reordering Scorer\n"
-       << "scores lexical reordering models of several types (hierarchical, phrase-based and word-based-extraction\n";
+  cerr	<< "Lexical Reordering Scorer v3.0\n"
+				<< "Modified by Ventsislav Zhechev, Autodesk Development Sàrl" << endl
+				<< "scores lexical reordering models of several types (hierarchical, phrase-based and word-based-extraction\n";
 
   if (argc < 3) {
     cerr << "syntax: score_reordering extractFile smoothingValue filepath (--model \"type max-orientation (specification-strings)\" )+\n";
     exit(1);
   }
 
-  char* extractFileName = argv[1];
+  string extractFileName = argv[1];
   double smoothingValue = atof(argv[2]);
   string filepath = argv[3];
-
-  util::FilePiece eFile(extractFileName);
 
   bool smoothWithCounts = false;
   map<string,ModelScore*> modelScores;
@@ -63,7 +66,7 @@ int main(int argc, char* argv[])
   StringPiece e,f,w,p,h;
   StringPiece prev, next;
 
-  int i = 4;
+  unsigned i = 4;
   while (i<argc) {
     if (strcmp(argv[i],"--SmoothWithCounts") == 0) {
       smoothWithCounts = true;
@@ -102,18 +105,28 @@ int main(int argc, char* argv[])
     i++;
   }
 
+	if (filepath == "-" && models.size() != 1) {
+		cerr << "It is not possible to score more than one model when writing to standart output!" << endl;
+		exit(2);
+	}
+	
   ////////////////////////////////////
   //calculate smoothing
-  if (smoothWithCounts) {
-    util::FilePiece eFileForCounts(extractFileName);
-    while (true) {
-      StringPiece line;
-      try {
-        line = eFileForCounts.ReadLine();
-      } catch (util::EndOfFileException &e) {
-        break;
-      }
-      float weight = 1;
+	if (!smoothWithCounts)
+	//constant smoothing
+		for (size_t i=0; i<models.size(); models[i++]->createConstSmoothing(smoothingValue));
+	else {
+		if (extractFileName == "-") {
+			cerr << "The ‘smoothWithCounts’ option may not be used with piped input!" << endl;
+			exit(9);
+		}
+		Bz2LineReader extractFile(extractFileName);
+		unsigned i = 0;
+		for (string line = extractFile.readLine(); !line.empty(); line = extractFile.readLine()) {
+			if (line.empty()) break;
+			if ((++i)%10000000 == 0) cerr << "[l. score:" << i << "]" << flush;
+			else if (i%100000 == 0) cerr << "," << flush;
+			float weight = 1;
       split_line(line,e,f,w,p,h,weight);
       if (hier) {
         get_orientations(h, prev, next);
@@ -130,28 +143,21 @@ int main(int argc, char* argv[])
     }
 
     // calculate smoothing for each model
-    for (size_t i=0; i<models.size(); ++i) {
-      models[i]->createSmoothing(smoothingValue);
-    }
-
-  } else {
-    //constant smoothing
-    for (size_t i=0; i<models.size(); ++i) {
-      models[i]->createConstSmoothing(smoothingValue);
-    }
+		for (size_t i=0; i<models.size(); models[i++]->createSmoothing(smoothingValue));
+		
+		extractFile.close();
   }
 
   ////////////////////////////////////
   //calculate scores for reordering table
   string f_current,e_current;
-  bool first = true;
-  while (true) {
-    StringPiece line;
-    try {
-      line = eFile.ReadLine();
-    } catch (util::EndOfFileException &e) {
-      break;
-    }
+	bool first = true;
+	Bz2LineReader extractFile(extractFileName);
+	i = 0;
+	for (string line = extractFile.readLine(); !line.empty(); line = extractFile.readLine()) {
+		if (line.empty()) break;
+		if ((++i)%10000000 == 0) cerr << "[l. score:" << i << "]" << flush;
+		else if (i%100000 == 0) cerr << "." << flush;
     float weight = 1;
     split_line(line,f,e,w,p,h,weight);
 
@@ -198,17 +204,11 @@ int main(int argc, char* argv[])
     }
   }
   //Score the last phrases
-  for (size_t i=0; i<models.size(); ++i) {
-    models[i]->score_fe(f_current,e_current);
-  }
-  for (size_t i=0; i<models.size(); ++i) {
-    models[i]->score_f(f_current);
-  }
+  for (size_t i=0; i<models.size(); models[i++]->score_fe(f_current,e_current));
+  for (size_t i=0; i<models.size(); models[i++]->score_f(f_current));
 
-  //Zip all files
-  for (size_t i=0; i<models.size(); ++i) {
-    models[i]->zipFile();
-  }
+	//Release the memory
+	for (size_t i=0; i<models.size(); delete models[i++]);
 
   return 0;
 }
